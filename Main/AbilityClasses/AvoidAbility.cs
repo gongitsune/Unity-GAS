@@ -5,8 +5,8 @@ namespace TestApp.AbilityClasses;
 
 public class AvoidAbility : BaseGamePlayAbility
 {
-    private readonly float _speed;
     private static readonly Logger Logger = LogManager.GetLogger("Avoid Ability");
+    private readonly float _speed;
 
     public AvoidAbility(float speed)
     {
@@ -20,12 +20,12 @@ public class AvoidAbility : BaseGamePlayAbility
 
     protected override void OnActivateAbility()
     {
-        Logger.Info("Activate Avoid Ability: {0}", _speed);
+        Logger.Info("Activate Avoid Ability: Speed -> {0}", _speed);
         EndAbility();
     }
 
     public override void OnEndAbility()
     {
-        Logger.Info("Inactive Avoid Ability: {0}", _speed);
+        Logger.Info("Inactive Avoid Ability: Speed -> {0}", _speed);
     }
 }

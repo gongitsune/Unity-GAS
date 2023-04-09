@@ -9,10 +9,9 @@ public readonly struct TagContainer : IEquatable<TagContainer>
     public override string ToString()
     {
         var builder = new StringBuilder();
-        // ReSharper disable once ForCanBeConvertedToForeach
-        for (var i = 0; i < _separateTags.Length; i++)
+        foreach (var tag in _separateTags)
         {
-            builder.Append(_separateTags[i]);
+            builder.Append(tag);
             builder.Append('.');
         }
 
@@ -51,13 +50,7 @@ public readonly struct TagContainer : IEquatable<TagContainer>
     {
         if (_separateTags == null) return false;
         if (_separateTags.Length != other._separateTags.Length) return false;
-        // ReSharper disable once LoopCanBeConvertedToQuery
-
-        for (var i = 0; i < _separateTags.Length; i++)
-            if (_separateTags[i] != other._separateTags[i])
-                return false;
-
-        return true;
+        return !_separateTags.Where((t, i) => t != other._separateTags[i]).Any();
     }
 
     public override bool Equals(object? obj)

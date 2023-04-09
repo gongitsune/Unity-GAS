@@ -16,7 +16,7 @@ public class AttackAbility : BaseGamePlayAbility
 
     protected override async void OnActivateAbility()
     {
-        Logger.Info($"Activate Attack Ability: {_power}");
+        Logger.Info($"Activate Attack Ability: Power -> {_power}");
         try
         {
             await Task.Delay(TimeSpan.FromSeconds(1), _token.Token);
@@ -30,7 +30,7 @@ public class AttackAbility : BaseGamePlayAbility
 
     public override void OnEndAbility()
     {
-        Logger.Info("End Attack ability: {0}", _power);
+        Logger.Info($"End Attack ability: Power -> {_power}");
         _token.Cancel();
     }
 

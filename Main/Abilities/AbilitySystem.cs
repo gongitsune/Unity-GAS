@@ -1,9 +1,4 @@
-﻿// ReSharper disable ForCanBeConvertedToForeach
-
-
-// ReSharper disable ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
-
-namespace TestApp.Abilities;
+﻿namespace TestApp.Abilities;
 
 public class AbilitySystem
 {
@@ -36,9 +31,10 @@ public class AbilitySystem
         var cancelTags = abilityData.TagSetting.CancelAbilitiesWithTag;
         if (cancelTags is null) return true;
 
-        foreach (var key in _abilityDataList.Keys)
-            if (key.TagSetting.AbilityTags?.HasEvenOneTag(cancelTags) ?? false)
-                TryCancelAbility(key);
+        foreach (var key in from key in _abilityDataList.Keys
+                 where key.TagSetting.AbilityTags?.HasEvenOneTag(cancelTags) ?? false
+                 select key)
+            TryCancelAbility(key);
 
         return true;
     }
@@ -47,7 +43,9 @@ public class AbilitySystem
     {
         if (!_abilityDataList.TryGetValue(abilityData, out var abilityList)) return false;
 
-        for (var i = 0; i < abilityList.Count; i++) abilityList[i].OnEndAbility();
+        foreach (var tag in abilityList)
+            tag.OnEndAbility();
+
         abilityList.Clear();
         if (abilityData.TagSetting.ActivationOwnedTags?.GetTags() is { } ownedTags)
             _ownersTags.RemoveAllTags(v => ownedTags.Contains(v));

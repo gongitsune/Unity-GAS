@@ -9,7 +9,7 @@ using TestApp.AbilityClasses;
 #region Log Settings
 
 var logConfig = new LoggingConfiguration();
-var logConsole = new ColoredConsoleTarget("logconsole")
+var logConsole = new ColoredConsoleTarget("logConsole")
 {
     Layout = new SimpleLayout("[${longdate}] [${level:uppercase=true}] [${logger}] ${message}")
 };

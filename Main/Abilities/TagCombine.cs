@@ -1,9 +1,4 @@
-﻿// ReSharper disable LoopCanBeConvertedToQuery
-// ReSharper disable ForCanBeConvertedToForeach
-
-// ReSharper disable ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
-
-using System.Text;
+﻿using System.Text;
 
 namespace TestApp.Abilities;
 
@@ -16,11 +11,7 @@ public interface ITagCombine
     /// <returns></returns>
     bool HasTag(TagContainer other)
     {
-        for (var i = 0; i < GetTags().Count; i++)
-            if (GetTags()[i].NearEqual(other))
-                return true;
-
-        return false;
+        return GetTags().Any(other.NearEqual);
     }
 
     /// <summary>
@@ -30,11 +21,7 @@ public interface ITagCombine
     bool HasAllOtherTag<T>(T other) where T : ITagCombine
     {
         var otherTags = other.GetTags();
-        for (var i = 0; i < otherTags.Count; i++)
-            if (!HasTag(otherTags[i]))
-                return false;
-
-        return true;
+        return otherTags.All(HasTag);
     }
 
     /// <summary>
@@ -44,11 +31,7 @@ public interface ITagCombine
     /// <returns></returns>
     bool HasEvenOneTag<T>(T other) where T : ITagCombine
     {
-        for (var i = 0; i < GetTags().Count; i++)
-            if (other.HasTag(GetTags()[i]))
-                return true;
-
-        return false;
+        return GetTags().Any(other.HasTag);
     }
 
     IReadOnlyList<TagContainer> GetTags();
@@ -81,9 +64,9 @@ public class ImmutableTagCombine : ITagCombine
     {
         var builder = new StringBuilder();
         builder.Append('[');
-        for (var i = 0; i < _tags.Length; i++)
+        foreach (var tag in _tags)
         {
-            builder.Append(_tags[i].ToString());
+            builder.Append(tag.ToString());
             builder.Append(", ");
         }
 
@@ -142,9 +125,9 @@ public class MutableTagCombine : ITagCombine
     {
         var builder = new StringBuilder();
         builder.Append('[');
-        for (var i = 0; i < _tags.Count; i++)
+        foreach (var tag in _tags)
         {
-            builder.Append(_tags[i].ToString());
+            builder.Append(tag.ToString());
             builder.Append(", ");
         }
 
