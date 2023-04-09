@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "aG6Ccx7Ve8+JH4IfkrzXAa5Z+/hIsHrLY9aSG4M6MaxxvGpHhm4oS2lHKxSdl70evGDuahvj0G6UsKIGSas4Qg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\keigo\\RiderProjects\\Unity-GAS\\Main\\Main.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\keigo\\.nuget\\packages\\nlog\\5.0.4\\nlog.5.0.4.nupkg.sha512"
+  ],
+  "logs": []
+}
